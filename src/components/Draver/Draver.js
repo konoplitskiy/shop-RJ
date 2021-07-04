@@ -1,32 +1,34 @@
 import React from 'react';
 import './Draver.scss';
 
-const Draver = () => {
+const Draver = ({onClose, items=[]}) => {
     return (
-        <div className="overlay" style={{display:"none"}}>
+        <div className="overlay">
             <div className="drawer">
-            <h2 className="mb-30">Корзина   <img className="removeBtn" src="/img/delon.svg" alt="Remove" width={32} height={32}/></h2>
+            <h2 className="mb-30">Корзина
+                <img
+                    className="removeBtn"
+                    src="/img/delon.svg"
+                    alt="Remove"
+                    width={32} height={32}
+                    onClick={onClose}
+                />
+            </h2>
             <div className="items">
-                <div className="cartItem d-flex align-center mb-20">
-                    <div className="cartItemImg" style={{backgroundImage:'url(/img/products/product1.jpg)'}}></div>
-                    <div className="mr-20">
-                        <p className="mb-5">
-                            Мужские Кроссовки Nike Air Max 270
-                        </p>
-                        <b>12 999 руб.</b>
-                    </div>
-                    <img className="removeBtn" src="/img/delon.svg" alt="Remove"/>
-                </div>
-                <div className="cartItem d-flex align-center mb-20">
-                    <div className="cartItemImg" style={{backgroundImage:'url(/img/products/product2.jpg)'}}></div>
-                    <div className="mr-20">
-                        <p className="mb-5">
-                            Мужские Кроссовки Nike Air Max 270
-                        </p>
-                        <b>12 999 руб.</b>
-                    </div>
-                    <img className="removeBtn" src="/img/delon.svg" alt="Remove"/>
-                </div>
+                {
+                    items.map((obj)=>
+                        <div className="cartItem d-flex align-center mb-20">
+                            <div className="cartItemImg" style={{backgroundImage:`url(${obj.imgUrl})`}}></div>
+                            <div className="mr-20">
+                                <p className="mb-5">
+                                    {obj.title}
+                                </p>
+                                <b>{obj.price} руб.</b>
+                            </div>
+                            <img className="removeBtn" src="/img/delon.svg" alt="Remove"/>
+                        </div>
+                    )
+                }
             </div>
             <div className="cartTotalBlock">
                 <ul>

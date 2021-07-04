@@ -4,20 +4,42 @@ import Header from './components/Header/Header';
 import Draver from './components/Draver/Draver';
 import './App.scss';
 
-const arr = [
-        {name:'Мужские Кроссовки Nike Blazer Mid Suede', price : 12899, imgUrl : './img/products/product1.jpg'},
-        {name:'Мужские Кроссовки Nike Air Max', price : 1299,imgUrl : './img/products/product2.jpg'},
-        {name:'Мужские Кроссовки Nike Blazer Mid Suede', price : 8299, imgUrl : './img/products/product3.jpg'},
-        {name:'Кроссовки Puma X Aka Boku Future Rider', price : 3299, imgUrl : './img/products/product4.jpg'}
-    ];
+
+
 
 
 function App() {
+    const [cartOpnened, setCartOpened] = React.useState(false);
+    const [cartItems,setCartItems] = React.useState([]);
+    const [items,setItems] = React.useState([]);
+
+
+  React.useEffect(()=> {
+      fetch('https://60e1ad2b5a5596001730f1c8.mockapi.io/items')
+          .then(res=>{
+              return res.json();
+          })
+          .then(json=> {
+              setItems(json)
+          })
+  },[])
+
+
+    // const onAddToCart = (obj) => {
+    //     setCartItems([...cartItems,obj])
+    //     console.log(cartItems)
+    // }
+
+    const onAddToCart = (obj) => {
+       setCartItems(prev =>[...prev,obj]);
+        console.log(cartItems)
+    }
+
   return (
     <div className="wrapper clear">
-     <Draver/>
-     <Header/>
-        <div className="content p-40">
+        {cartOpnened && <Draver items={cartItems}  onClose = {()=> setCartOpened(false)}/> }
+     <Header onClickCart = {()=> setCartOpened(true)}/>
+        <div className="content p-40 ">
             <div className="d-flex align-center justify-between mb-40">
                 <h1 className="mb-40">Все красовки</h1>
                 <div className="search-block d-flex">
@@ -25,10 +47,16 @@ function App() {
                     <input type="text" placeholder="Поиск..."/>
                 </div>
             </div>
-            <div className="card-list d-flex">
+            <div className="card-list d-flex flex-wrap">
                 {
-                   arr.map(item => {
-                       return <Card title={item.name} price={item.price} imgUrl ={item.imgUrl} priCliki={()=>console.log(item)}/>
+                   items.map(item => {
+                       return <Card
+                           title={item.name}
+                           price={item.price}
+                           imgUrl ={item.imgUrl}
+                           onFavorite ={()=> console.log('Добавили в закладки')}
+                           onPlus={(obj)=>onAddToCart(obj)}
+                       />
                    })
                 }
             </div>
@@ -38,4 +66,5 @@ function App() {
 }
 
 export default App;
-
+// https://www.youtube.com/watch?v=gfx8IBUzZqw&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=4
+// #4video 2:08:25
