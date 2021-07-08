@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/oio.iml" filepath="$PROJECT_DIR$/.idea/oio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/snikersREACT.iml" filepath="$PROJECT_DIR$/.idea/snikersREACT.iml" />
     </modules>
   </component>
 </project>
